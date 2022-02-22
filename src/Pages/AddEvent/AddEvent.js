@@ -27,7 +27,7 @@ function AddEvent() {
 
     const handleLoginSubmit = (e) => {
         const newData = { ...eventData, date: date.toLocaleDateString(), email: user }
-        fetch('http://localhost:5000/addevent', {
+        fetch('https://event-managementt.herokuapp.com/addevent', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

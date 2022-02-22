@@ -16,7 +16,7 @@ function Login({ setUser }) {
   }
 
   const handleLoginSubmit = (e) => {
-    fetch('http://localhost:5000/user', {
+    fetch('https://event-managementt.herokuapp.com/user', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'

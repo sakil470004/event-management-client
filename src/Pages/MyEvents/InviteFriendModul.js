@@ -37,7 +37,7 @@ export default function InviteFriendModule({ open, setOpen, email, title }) {
         // send data to the server
         const newData = { ...inviteDetails, title: title, email: email }
 
-        fetch('http://localhost:5000/invite', {
+        fetch('https://event-managementt.herokuapp.com/invite', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

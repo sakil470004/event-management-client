@@ -5,7 +5,7 @@ function Invites({ user }) {
     const [invitesData, setInvitesData] = useState([])
 
     useEffect(() => {
-        fetch(`http://localhost:5000/invite?email=${user}`)
+        fetch(`https://event-managementt.herokuapp.com/invite?email=${user}`)
             .then(res => res.json())
             .then(data => {
                 setInvitesData(data);

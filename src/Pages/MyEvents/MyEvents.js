@@ -22,14 +22,14 @@ function MyEvents({ user }) {
     setIsChange(!isChange)
   }
   const fetchAllDataOfCurrentUser = () => {
-    fetch(`http://localhost:5000/myevent?email=${user}`)
+    fetch(`https://event-managementt.herokuapp.com/myevent?email=${user}`)
       .then(res => res.json())
       .then(data => {
         setEvents(data)
       })
   }
   const fetchAllDataForCurrentDate = (date) => {
-    fetch(`http://localhost:5000/myevent?email=${user}`)
+    fetch(`https://event-managementt.herokuapp.com/myevent?email=${user}`)
       .then(res => res.json())
       .then(data => {
         const result = data.filter(ev =>
@@ -40,7 +40,7 @@ function MyEvents({ user }) {
   }
   useEffect(() => {
     if (action) {
-      fetch(`http://localhost:5000/eventsWithAction?email=${user}&&action=${action}`)
+      fetch(`https://event-managementt.herokuapp.com/eventsWithAction?email=${user}&&action=${action}`)
 
         .then(res => res.json())
         .then(data => {

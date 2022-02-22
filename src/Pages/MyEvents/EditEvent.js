@@ -37,7 +37,7 @@ export default function EditEvent({ open, setOpen, email, title, description, im
     const handleInvite = (e) => {
         // send data to the server
 
-        fetch('http://localhost:5000/editEvent', {
+        fetch('https://event-managementt.herokuapp.com/editEvent', {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'

@@ -18,7 +18,7 @@ function UserDetails({ user }) {
         // send data to the server
 
 
-        fetch('http://localhost:5000/changePassword', {
+        fetch('https://event-managementt.herokuapp.com/changePassword', {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
@@ -45,7 +45,7 @@ function UserDetails({ user }) {
     }
 
     useEffect(() => {
-        fetch(`http://localhost:5000/userDetails?email=${user}`)
+        fetch(`https://event-managementt.herokuapp.com/userDetails?email=${user}`)
             .then(res => res.json())
             .then(data => {
                 setUserDetails(data)

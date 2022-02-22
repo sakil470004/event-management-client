@@ -16,7 +16,7 @@ function Register({ setUser }) {
   }
 
   const handleLoginSubmit = (e) => {
-    fetch('http://localhost:5000/adduser', {
+    fetch('https://event-managementt.herokuapp.com/adduser', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'

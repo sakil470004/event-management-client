@@ -19,7 +19,7 @@ function Home() {
     })
     useEffect(() => {
         setIsLoading(true)
-        fetch('http://localhost:5000/events')
+        fetch('https://event-managementt.herokuapp.com/events')
             .then(res => res.json())
             .then(data => {
                 setAllEvents(data.events)
@@ -30,7 +30,7 @@ function Home() {
     }, [])
     useEffect(() => {
         setIsLoading(true)
-        fetch(`http://localhost:5000/events?page=${page}&&size=${size}`)
+        fetch(`https://event-managementt.herokuapp.com/events?page=${page}&&size=${size}`)
             .then(res => res.json())
             .then(data => {
                 const count = data.count;
