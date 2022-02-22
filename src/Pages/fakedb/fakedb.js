@@ -19,7 +19,7 @@ const updateDb = cart => {
     localStorage.setItem('event-management-user', JSON.stringify(cart));
 }
 
-const removeFromDb = id => {
+const removeFromDb = () => {
     const exists = getDb();
     if (!exists) {
 

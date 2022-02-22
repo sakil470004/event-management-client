@@ -39,3 +39,24 @@
     cursor: pointer;
     margin-left: -50px;
 }
+
+/* for pagination */
+.pagination {
+    margin: 30px;
+}
+
+.pagination button {
+    padding: 0 10px;
+    margin-right: 20px;
+    margin-top: 10px;
+    width: 50px;
+    cursor: pointer;
+    border-radius: 5px;
+
+}
+
+.pagination .selected {
+    background-color: #6000cb;
+    color: white;
+
+}

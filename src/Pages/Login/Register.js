@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router';
 import { addToDb } from '../fakedb/fakedb';
 
-function Register() {
+function Register({ setUser }) {
   const [loginData, setLoginData] = useState({})
   const navigation = useNavigate();
   const handleOnBlur = e => {
@@ -29,6 +29,7 @@ function Register() {
         if (data.insertedId) {
           // alert('Registration Success')
           addToDb(loginData.email)
+          setUser(loginData.email)
           navigation('/myEvents')
         } else {
           alert(data.message)

@@ -10,11 +10,14 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom';
+import { getStoredCart, removeFromDb } from '../fakedb/fakedb';
 
 // const pages = ['Products', 'Pricing', 'Blog'];
 
-const ResponsiveAppBar = () => {
+const ResponsiveAppBar = ({ user, setUser }) => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
+
+
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -22,7 +25,11 @@ const ResponsiveAppBar = () => {
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
     };
-
+    const handleLogOUt = () => {
+        handleCloseNavMenu();
+        removeFromDb();
+        setUser('')
+    }
 
 
     return (
@@ -108,13 +115,22 @@ const ResponsiveAppBar = () => {
                         >
                             <Link style={{ color: 'white', textDecoration: 'none' }} to='/addEvent'>Add Event</Link>
                         </Button>
-                        <Button
+                        {!user ? <Button
                             onClick={handleCloseNavMenu}
                             sx={{ my: 2, color: 'white', display: 'block' }}
                         >
                             <Link style={{ color: 'white', textDecoration: 'none' }} to='/login'>Log In</Link>
-                        </Button>
-
+                        </Button> :
+                            <Box style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                <h3 style={{margin:'0 12px'}}>{user}</h3>
+                                <Button
+                                    onClick={handleLogOUt}
+                                    sx={{ my: 2, color: 'white', display: 'block' }}
+                                >
+                                    Log OUt
+                                </Button>
+                            </Box>
+                        }
                     </Box>
 
 
