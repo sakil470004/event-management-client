@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import CardList from '../CardList/CardList'
-import TopBanner from '../TopBanner/TopBanner'
 import './Home.css'
 
 function Home() {
@@ -29,7 +28,7 @@ function Home() {
 
             </div>
 
-            <CardList
+            <CardList 
                 events={filteredEvent}
             />
         </div>

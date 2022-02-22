@@ -5,7 +5,7 @@ import Card from '../Card/Card'
 function CardList({ events }) {
 
     return (
-        <Container>
+        <Container style={{ marginTop: '-150px' }}>
             <Grid container spacing={3} style={{ marginBottom: '5px', marginTop: '10px' }}>
                 {
                     events.map(ev =>

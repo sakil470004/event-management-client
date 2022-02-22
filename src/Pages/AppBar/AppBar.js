@@ -102,6 +102,18 @@ const ResponsiveAppBar = () => {
                         >
                             <Link style={{ color: 'white', textDecoration: 'none' }} to='/myEvents'>My Events</Link>
                         </Button>
+                        <Button
+                            onClick={handleCloseNavMenu}
+                            sx={{ my: 2, color: 'white', display: 'block' }}
+                        >
+                            <Link style={{ color: 'white', textDecoration: 'none' }} to='/addEvent'>Add Event</Link>
+                        </Button>
+                        <Button
+                            onClick={handleCloseNavMenu}
+                            sx={{ my: 2, color: 'white', display: 'block' }}
+                        >
+                            <Link style={{ color: 'white', textDecoration: 'none' }} to='/login'>Log In</Link>
+                        </Button>
 
                     </Box>
 

@@ -1,8 +1,8 @@
 import React from 'react'
 
-function Card({ title, img, description }) {
+function Card({ title, img }) {
   return (
-    <div style={{ background: '#3f90fc', borderRadius: '19px' }}>
+    <div style={{ background: '#2E3B55', borderRadius: '19px' }}>
       <div style={{ height: '350px', backgroundImage: `url(${img})`, backgroundRepeat: 'no-repeat', backgroundPosition: 'cover', borderRadius: '15px' }}>
 
       </div>
