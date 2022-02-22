@@ -2,10 +2,10 @@ import { CircularProgress } from '@mui/material';
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 
-const PrivateRoute = ({user, children, ...rest }) => {
+const PrivateRoute = ({isLoading,user, children, ...rest }) => {
 
     let location = useLocation();
-    // if (isLoading) { return <CircularProgress /> }
+    if (isLoading) { return <CircularProgress /> }
 
     if (user) {
         return children

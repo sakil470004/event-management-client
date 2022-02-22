@@ -1,5 +1,4 @@
-import { Button, Container, Grid, TextField } from '@mui/material';
-import { borderRadius } from '@mui/system';
+import { Container, Grid, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import EventCard from './EventCard';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
@@ -8,25 +7,19 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 
 function MyEvents({ user }) {
   const [events, setEvents] = useState([]);
-  const [dEvents, setDEvents] = useState([]);
+  const [isChange, setIsChange] = useState(false);
   const [action, setAction] = useState('')
   const [date, setDate] = useState(new Date());
-  const [first, setFirst] = useState(true)
+
 
   const handleDateChange = (newValue) => {
-    fetchAllDataOfCurrentUser()
-    let newData = [...events];
-
-    const result = newData.filter(ev =>
-      ev.date === newValue.toLocaleDateString()
-    )
     setDate(newValue);
-
-    setDEvents(result)
+    fetchAllDataForCurrentDate(newValue)
   };
 
   const handleSort = (actionName) => {
     setAction(actionName)
+    setIsChange(!isChange)
   }
   const fetchAllDataOfCurrentUser = () => {
     fetch(`http://localhost:5000/myevent?email=${user}`)
@@ -35,20 +28,29 @@ function MyEvents({ user }) {
         setEvents(data)
       })
   }
+  const fetchAllDataForCurrentDate = (date) => {
+    fetch(`http://localhost:5000/myevent?email=${user}`)
+      .then(res => res.json())
+      .then(data => {
+        const result = data.filter(ev =>
+          ev.date === date.toLocaleDateString()
+        )
+        setEvents(result)
+      })
+  }
   useEffect(() => {
     if (action) {
       fetch(`http://localhost:5000/eventsWithAction?email=${user}&&action=${action}`)
+
         .then(res => res.json())
         .then(data => {
           setEvents(data)
-          setDEvents(data)
         })
     } else {
-
       fetchAllDataOfCurrentUser()
 
     }
-  }, [action])
+  }, [isChange])
   return (
     <Container>
       <h1>My Events</h1>
@@ -78,16 +80,20 @@ function MyEvents({ user }) {
       </div>
       <Grid container spacing={0} style={{ marginBottom: '5px', marginTop: '10px' }}>
         {
-          dEvents.map(ev =>
+          events.map(ev =>
             <Grid sx={{ borderRadius: 15 }} item xs={12} sm={6} md={4}
               key={ev._id}
             >
 
               <EventCard
+                setIsChange={setIsChange}
+                isChange={isChange}
                 title={ev.title}
                 description={ev.description}
                 img={ev.img}
                 date={ev.date}
+                id={ev._id}
+                email={ev.email}
 
 
               />

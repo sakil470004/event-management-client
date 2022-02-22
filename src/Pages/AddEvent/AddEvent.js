@@ -27,7 +27,6 @@ function AddEvent() {
 
     const handleLoginSubmit = (e) => {
         const newData = { ...eventData, date: date.toLocaleDateString(), email: user }
-        console.log(newData)
         fetch('http://localhost:5000/addevent', {
             method: 'POST',
             headers: {

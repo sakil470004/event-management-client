@@ -115,6 +115,12 @@ const ResponsiveAppBar = ({ user, setUser }) => {
                         >
                             <Link style={{ color: 'white', textDecoration: 'none' }} to='/addEvent'>Add Event</Link>
                         </Button>
+                        <Button
+                            onClick={handleCloseNavMenu}
+                            sx={{ my: 2, color: 'white', display: 'block' }}
+                        >
+                            <Link style={{ color: 'white', textDecoration: 'none' }} to='/invite'>Invitation List</Link>
+                        </Button>
                         {!user ? <Button
                             onClick={handleCloseNavMenu}
                             sx={{ my: 2, color: 'white', display: 'block' }}
@@ -122,7 +128,12 @@ const ResponsiveAppBar = ({ user, setUser }) => {
                             <Link style={{ color: 'white', textDecoration: 'none' }} to='/login'>Log In</Link>
                         </Button> :
                             <Box style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                <h3 style={{margin:'0 12px'}}>{user}</h3>
+                                <Button
+                                    onClick={handleCloseNavMenu}
+                                    sx={{ my: 2, color: 'white', display: 'block' }}
+                                >
+                                    <Link style={{ color: 'white', textDecoration: 'none' }} to='/userDetails'>{user}</Link>
+                                </Button>
                                 <Button
                                     onClick={handleLogOUt}
                                     sx={{ my: 2, color: 'white', display: 'block' }}

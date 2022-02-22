@@ -13,12 +13,16 @@ import AddEvent from './Pages/AddEvent/AddEvent';
 import PrivateRoute from './Pages/Login/PrivateRoute';
 import { useEffect, useState } from 'react';
 import { getStoredCart } from './Pages/fakedb/fakedb';
+import Invites from './Pages/Invites/Invites';
+import UserDetails from './Pages/UserDetails/UserDetails';
 
 function App() {
   const [user, setUser] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   useEffect(() => {
+    setIsLoading(true)
     setUser(getStoredCart().user)
-
+    setIsLoading(false)
   }, [user])
   return (
     <div className="App">
@@ -28,14 +32,26 @@ function App() {
           <Route path='/' element={<Home />}>
           </Route>
           <Route path="/myEvents" element={
-            <PrivateRoute user={user}>
+            <PrivateRoute user={user} isLoading={isLoading}>
               <MyEvents user={user} />
             </PrivateRoute>
           } >
           </Route>
+          <Route path="/invite" element={
+            <PrivateRoute user={user} isLoading={isLoading}>
+              <Invites user={user} />
+            </PrivateRoute>
+          } >
+          </Route>
           <Route path="/addEvent" element={
-            <PrivateRoute user={user}>
+            <PrivateRoute user={user} isLoading={isLoading}>
               <AddEvent user={user} />
+            </PrivateRoute>
+          } >
+          </Route>
+          <Route path="/userDetails" element={
+            <PrivateRoute user={user} isLoading={isLoading}>
+              <UserDetails user={user} />
             </PrivateRoute>
           } >
           </Route>
