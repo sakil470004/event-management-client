@@ -1,4 +1,5 @@
 import { Button, Container, Grid } from '@mui/material';
+import { borderRadius } from '@mui/system';
 import React, { useEffect, useState } from 'react'
 import EventCard from './EventCard';
 
@@ -28,7 +29,8 @@ function MyEvents({ user }) {
       <h1>My Events</h1>
 
       <div>
-        <button>Sort</button>
+        <button style={{ color: 'white', background: '#2E3B55', border: 'none', borderRadius: '5px', fontSize: '20px', fontWeight: '300px', padding: '4px 10px', margin: '4px 10px',curso }} >Sort</button>
+        <button style={{ color: 'white', background: '#2E3B55', border: 'none', borderRadius: '5px', fontSize: '20px', fontWeight: '300px', padding: '4px 10px', margin: '4px 10px' }} >Sort</button>
       </div>
       <Grid container spacing={0} style={{ marginBottom: '5px', marginTop: '10px' }}>
         {
