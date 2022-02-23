@@ -10,14 +10,15 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom';
-import { getStoredCart, removeFromDb } from '../fakedb/fakedb';
+import { useNavigate } from 'react-router';
+import { removeFromDb } from '../fakedb/fakedb';
 
 // const pages = ['Products', 'Pricing', 'Blog'];
 
 const ResponsiveAppBar = ({ user, setUser }) => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
 
-
+    const navigation = useNavigate();
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -40,7 +41,9 @@ const ResponsiveAppBar = ({ user, setUser }) => {
                         variant="h6"
                         noWrap
                         component="div"
-                        sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
+                        sx={{ mr: 2, display: { xs: 'none', md: 'flex', cursor: 'pointer' } }}
+
+                        onClick={() => navigation('/')}
                     >
                         MI
                     </Typography>
@@ -85,54 +88,80 @@ const ResponsiveAppBar = ({ user, setUser }) => {
                                     <Link style={{ textDecoration: 'none' }} to='/myEvents'>My Events</Link>
                                 </Typography>
                             </MenuItem>
+                            <MenuItem onClick={handleCloseNavMenu}>
+                                <Typography textAlign="center">
+                                    <Link style={{ textDecoration: 'none' }} to='/addEvent'>Add Event</Link>
+                                </Typography>
+                            </MenuItem>
+                            <MenuItem onClick={handleCloseNavMenu}>
+                                <Typography textAlign="center">
+                                    <Link style={{ textDecoration: 'none' }} to='/invite'>Invitation List</Link>
+                                </Typography>
+                            </MenuItem>
+                            {user ? <Box>
+                                <MenuItem onClick={handleCloseNavMenu}>
+                                    <Typography textAlign="center">
+                                        <Link style={{ textDecoration: 'none' }} to='/userDetails'>{user}</Link>
+                                    </Typography>
+                                </MenuItem>
+                                <MenuItem onClick={handleLogOUt}>
+                                    LogOUt
+                                </MenuItem>
+                            </Box>
+                                : <MenuItem onClick={handleCloseNavMenu}>
+                                    <Typography textAlign="center">
+                                        <Link style={{ textDecoration: 'none' }} to='/login'>Log In</Link>
+                                    </Typography>
+                                </MenuItem>
 
+                            }
                         </Menu>
                     </Box>
                     <Typography
                         variant="h6"
                         noWrap
                         component="div"
-                        sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
+                        sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none', cursor: 'pointer' } }}
+                        onClick={() => navigation('/')}
                     >
                         MI
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         <Button
-                            onClick={handleCloseNavMenu}
+                            onClick={() => navigation('/')}
                             sx={{ my: 2, color: 'white', display: 'block' }}
                         >
-                            <Link style={{ color: 'white', textDecoration: 'none' }} to='/'>Home</Link>
+                            Home
                         </Button>
                         <Button
-                            onClick={handleCloseNavMenu}
+                            onClick={() => navigation('/myEvents')}
                             sx={{ my: 2, color: 'white', display: 'block' }}
-                        >
-                            <Link style={{ color: 'white', textDecoration: 'none' }} to='/myEvents'>My Events</Link>
+                        >My Events
                         </Button>
                         <Button
-                            onClick={handleCloseNavMenu}
+                            onClick={() => navigation('/addEvent')}
                             sx={{ my: 2, color: 'white', display: 'block' }}
                         >
-                            <Link style={{ color: 'white', textDecoration: 'none' }} to='/addEvent'>Add Event</Link>
+                            Add Event
                         </Button>
                         <Button
-                            onClick={handleCloseNavMenu}
+                            onClick={() => navigation('/invite')}
                             sx={{ my: 2, color: 'white', display: 'block' }}
-                        >
-                            <Link style={{ color: 'white', textDecoration: 'none' }} to='/invite'>Invitation List</Link>
+                        >Invitation List
                         </Button>
-                        {!user ? <Button
-                            onClick={handleCloseNavMenu}
-                            sx={{ my: 2, color: 'white', display: 'block' }}
-                        >
-                            <Link style={{ color: 'white', textDecoration: 'none' }} to='/login'>Log In</Link>
-                        </Button> :
+                        {!user ?
+                            <Button
+                                onClick={() => navigation('/login')}
+                                sx={{ my: 2, color: 'white', display: 'block' }}
+                            >Log In
+                            </Button> :
                             <Box style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                 <Button
-                                    onClick={handleCloseNavMenu}
+                                    onClick={() => navigation('/userDetails')}
+
                                     sx={{ my: 2, color: 'white', display: 'block' }}
                                 >
-                                    <Link style={{ color: 'white', textDecoration: 'none' }} to='/userDetails'>{user}</Link>
+                                    {user}
                                 </Button>
                                 <Button
                                     onClick={handleLogOUt}
