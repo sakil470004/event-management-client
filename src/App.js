@@ -15,6 +15,7 @@ import { useEffect, useState } from 'react';
 import { getStoredCart } from './Pages/fakedb/fakedb';
 import Invites from './Pages/Invites/Invites';
 import UserDetails from './Pages/UserDetails/UserDetails';
+import Footer from './Pages/Responsive footer pure css/Footer';
 
 function App() {
   const [user, setUser] = useState('')
@@ -61,6 +62,7 @@ function App() {
           </Route>
 
         </Routes>
+        <Footer />
       </Router>
     </div>
   );

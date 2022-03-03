@@ -10,7 +10,7 @@ function Home() {
     const [page, setPage] = useState(0);
     const [pageCount, setPageCount] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
-    const size = 9;
+    const size = 6;
     const handleSearch = (e) => {
         setSearchField(e.target.value)
     }
