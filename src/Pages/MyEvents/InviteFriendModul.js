@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { TextField } from '@mui/material';
+import { LinearProgress, TextField } from '@mui/material';
 
 const style = {
     position: 'absolute',
@@ -20,10 +20,11 @@ const style = {
 
 };
 
-export default function InviteFriendModule({ open, setOpen, email, title }) {
+export default function InviteFriendModule({ open, setOpen, email, title, date }) {
     const handleClose = () => setOpen(false);
     const [inviteDetails, setInviteDetails] = React.useState({})
     const form = React.useRef(null)
+    const [isLoading, setIsLoading] = React.useState(false)
 
     const handleOnBlur = e => {
         const field = e.target.name;
@@ -35,7 +36,8 @@ export default function InviteFriendModule({ open, setOpen, email, title }) {
     }
     const handleInvite = (e) => {
         // send data to the server
-        const newData = { ...inviteDetails, title: title, email: email }
+        setIsLoading(true)
+        const newData = { ...inviteDetails, title: title, email: email, date: date }
 
         fetch('https://event-managementt.herokuapp.com/invite', {
             method: 'POST',
@@ -53,6 +55,7 @@ export default function InviteFriendModule({ open, setOpen, email, title }) {
                     // form.current.reset();
 
                 }
+                setIsLoading(false)
             })
         // console.log(newData)
         setOpen(false)
@@ -71,45 +74,51 @@ export default function InviteFriendModule({ open, setOpen, email, title }) {
                 <Box sx={style}>
 
                     <h2>Invite Friend</h2>
-                    <form
-                        ref={form}
-                        onSubmit={handleInvite}>
+                    {isLoading ?
+                        <div style={{ height: '40vh' }}>
+                            <LinearProgress />
+                        </div>
+                        :
+                        <form
+                            ref={form}
+                            onSubmit={handleInvite}>
 
-                        <TextField
-                            disabled
-                            value={title}
-                            sx={{ width: '90%', m: 2 }}
+                            <TextField
+                                disabled
+                                value={title}
+                                sx={{ width: '90%', m: 2 }}
 
-                            variant="standard"
-                            name='title'
-                        />
+                                variant="standard"
+                                name='title'
+                            />
 
-                        <TextField
-                            disabled
-                            value={email}
-                            sx={{ width: '90%', m: 2 }}
+                            <TextField
+                                disabled
+                                value={email}
+                                sx={{ width: '90%', m: 2 }}
 
-                            variant="standard"
-                            name='email'
-                        />
-                        <TextField
-                            required
-                            sx={{ width: '90%', m: 2 }}
-                            label="Friend Email"
-                            variant="standard"
-                            name='femail'
-                            type='email'
+                                variant="standard"
+                                name='email'
+                            />
+                            <TextField
+                                required
+                                sx={{ width: '90%', m: 2 }}
+                                label="Friend Email"
+                                variant="standard"
+                                name='femail'
+                                type='email'
 
-                            onBlur={handleOnBlur} />
+                                onBlur={handleOnBlur} />
 
 
-                        <Button
-                            sx={{ width: '90%', maxWidth: '450px', m: 1, color: 'white', background: '#2E3B55', borderRadius: '10px' }}
-                            variant='contained'
-                            type='submit'
-                        >Invite</Button>
+                            <Button
+                                sx={{ width: '90%', maxWidth: '450px', m: 1, color: 'white', background: '#2E3B55', borderRadius: '10px' }}
+                                variant='contained'
+                                type='submit'
+                            >Invite</Button>
 
-                    </form>
+                        </form>
+                    }
                 </Box>
             </Modal>
         </div>

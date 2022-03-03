@@ -1,4 +1,4 @@
-import { CircularProgress } from '@mui/material';
+import { LinearProgress } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import CardList from '../CardList/CardList'
 import './Home.css'
@@ -24,8 +24,8 @@ function Home() {
             .then(data => {
                 setAllEvents(data.events)
 
+                setIsLoading(false)
             })
-        setIsLoading(false)
 
     }, [])
     useEffect(() => {
@@ -37,34 +37,39 @@ function Home() {
                 const pageNumber = Math.ceil(count / size);
                 setPageCount(pageNumber);
                 setEvents(data.events);
+                setIsLoading(false)
             })
-        setIsLoading(false)
     }, [page])
     return (
-        isLoading ? <CircularProgress /> :
-            <div>
-                <div className='background-cointainer-home' >         <h1>Best Way Lead Life Lot of Fun</h1>
-                    <div>
-                        <input onChange={handleSearch} className='home-search-input' placeholder='Search Events'></input>
-                        <button className='home-search-btn' >Search</button>
-                    </div>
-
+        <div>
+            <div className='background-cointainer-home' >         <h1>Best Way Lead Life Lot of Fun</h1>
+                <div>
+                    <input onChange={handleSearch} className='home-search-input' placeholder='Search Events'></input>
+                    <button className='home-search-btn' >Search</button>
                 </div>
 
+            </div>
+
+            {isLoading ?
+                <div style={{ height: '40vh' }}>
+                    <LinearProgress />
+                </div>
+                :
                 <CardList
                     events={searchField ? filteredEvent : events}
                 />
-                <div className="pagination">
-                    {
-                        [...Array(pageCount).keys()]
-                            .map(number => <button
-                                className={number === page ? 'selected' : ''}
-                                key={number}
-                                onClick={() => setPage(number)}
-                            >{number + 1}</button>)
-                    }
-                </div>
+            }
+            <div className="pagination">
+                {
+                    [...Array(pageCount).keys()]
+                        .map(number => <button
+                            className={number === page ? 'selected' : ''}
+                            key={number}
+                            onClick={() => setPage(number)}
+                        >{number + 1}</button>)
+                }
             </div>
+        </div>
     )
 }
 

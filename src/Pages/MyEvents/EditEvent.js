@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { TextField } from '@mui/material';
+import { LinearProgress, TextField } from '@mui/material';
 
 const style = {
     position: 'absolute',
@@ -25,6 +25,8 @@ export default function EditEvent({ open, setOpen, email, title, description, im
     const handleClose = () => setOpen(false);
     const [eventDetails, setEventDetails] = React.useState({ title, description, img, _id: id, date, email })
     const form = React.useRef(null)
+    const [isLoading, setIsLoading] = React.useState(false)
+
 
     const handleOnBlur = e => {
         const field = e.target.name;
@@ -36,7 +38,7 @@ export default function EditEvent({ open, setOpen, email, title, description, im
     }
     const handleInvite = (e) => {
         // send data to the server
-
+        setIsLoading(true)
         fetch('https://event-managementt.herokuapp.com/editEvent', {
             method: 'PUT',
             headers: {
@@ -56,7 +58,7 @@ export default function EditEvent({ open, setOpen, email, title, description, im
                 }
                 // empty input field
                 // for name field need must and here name is email  
-
+                setIsLoading(false)
             })
 
 
@@ -76,63 +78,69 @@ export default function EditEvent({ open, setOpen, email, title, description, im
                 <Box sx={style}>
 
                     <h2>Edit Event Details</h2>
-                    <form
-                        ref={form}
-                        onSubmit={handleInvite}>
+                    {isLoading ?
+                        <div style={{ height: '40vh' }}>
+                            <LinearProgress />
+                        </div>
+                        :
+                        <form
+                            ref={form}
+                            onSubmit={handleInvite}>
 
-                        <TextField
-                            required
-                            onBlur={handleOnBlur}
-                            label="Event Title"
-                            sx={{ width: '90%', m: 2 }}
-                            variant="standard"
-                            name='title'
-                            defaultValue={eventDetails.title}
-                        />
-                        <TextField
-                            required
-                            onBlur={handleOnBlur}
-                            label="Event Description"
-                            sx={{ width: '90%', m: 2 }}
-                            variant="standard"
-                            name='description'
-                            defaultValue={eventDetails.description}
-                        />
-                        <TextField
-                            required
-                            onBlur={handleOnBlur}
-                            label="Image URL"
-                            sx={{ width: '90%', m: 2 }}
-                            variant="standard"
-                            name='img'
-                            defaultValue={eventDetails.img}
-                        />
-                        <TextField
-                            disabled
-                            sx={{ width: '90%', m: 2 }}
-                            variant="standard"
-                            name='description'
-                            type='email'
-                            value={eventDetails.email}
-                        />
+                            <TextField
+                                required
+                                onBlur={handleOnBlur}
+                                label="Event Title"
+                                sx={{ width: '90%', m: 2 }}
+                                variant="standard"
+                                name='title'
+                                defaultValue={eventDetails.title}
+                            />
+                            <TextField
+                                required
+                                onBlur={handleOnBlur}
+                                label="Event Description"
+                                sx={{ width: '90%', m: 2 }}
+                                variant="standard"
+                                name='description'
+                                defaultValue={eventDetails.description}
+                            />
+                            <TextField
+                                required
+                                onBlur={handleOnBlur}
+                                label="Image URL"
+                                sx={{ width: '90%', m: 2 }}
+                                variant="standard"
+                                name='img'
+                                defaultValue={eventDetails.img}
+                            />
+                            <TextField
+                                disabled
+                                sx={{ width: '90%', m: 2 }}
+                                variant="standard"
+                                name='description'
+                                type='email'
+                                value={eventDetails.email}
+                            />
 
-                        <TextField
-                            disabled
-                            value={date}
-                            sx={{ width: '90%', m: 2 }}
-                            variant="standard"
-                            name='email'
-                        />
+                            <TextField
+                                disabled
+                                value={date}
+                                sx={{ width: '90%', m: 2 }}
+                                variant="standard"
+                                name='email'
+                            />
 
 
 
-                        <Button
-                            sx={{ width: '90%', maxWidth: '450px', m: 1, color: 'white', background: '#2E3B55', borderRadius: '10px' }}
-                            variant='contained'
-                            type='submit'
-                        >Update</Button>
+                            <Button
+                                sx={{ width: '90%', maxWidth: '450px', m: 1, color: 'white', background: '#2E3B55', borderRadius: '10px' }}
+                                variant='contained'
+                                type='submit'
+                            >Update</Button>
 
-                    </form>
+                        </form>
+                    }
                 </Box>
             </Modal>
         </div>

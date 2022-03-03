@@ -1,4 +1,4 @@
-import { Container, Grid, TextField } from '@mui/material';
+import { Container, Grid, LinearProgress, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import EventCard from './EventCard';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
@@ -8,6 +8,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 function MyEvents({ user }) {
   const [events, setEvents] = useState([]);
   const [isChange, setIsChange] = useState(false);
+  const [isLoading, setIsLoading] = useState(false)
   const [action, setAction] = useState('')
   const [date, setDate] = useState(new Date());
 
@@ -22,13 +23,16 @@ function MyEvents({ user }) {
     setIsChange(!isChange)
   }
   const fetchAllDataOfCurrentUser = () => {
+    setIsLoading(true)
     fetch(`https://event-managementt.herokuapp.com/myevent?email=${user}`)
       .then(res => res.json())
       .then(data => {
         setEvents(data)
+        setIsLoading(false)
       })
   }
   const fetchAllDataForCurrentDate = (date) => {
+    setIsLoading(true)
     fetch(`https://event-managementt.herokuapp.com/myevent?email=${user}`)
       .then(res => res.json())
       .then(data => {
@@ -36,15 +40,18 @@ function MyEvents({ user }) {
           ev.date === date.toLocaleDateString()
         )
         setEvents(result)
+        setIsLoading(false)
       })
   }
   useEffect(() => {
+    setIsLoading(true)
     if (action) {
       fetch(`https://event-managementt.herokuapp.com/eventsWithAction?email=${user}&&action=${action}`)
 
         .then(res => res.json())
         .then(data => {
           setEvents(data)
+          setIsLoading(false)
         })
     } else {
       fetchAllDataOfCurrentUser()
@@ -78,29 +85,36 @@ function MyEvents({ user }) {
           />
         </LocalizationProvider>
       </div>
-      <Grid container spacing={0} style={{ marginBottom: '5px', marginTop: '10px' }}>
-        {
-          events.map(ev =>
-            <Grid sx={{ borderRadius: 15 }} item xs={12} sm={6} md={4}
-              key={ev._id}
-            >
+      {isLoading ?
 
-              <EventCard
-                setIsChange={setIsChange}
-                isChange={isChange}
-                title={ev.title}
-                description={ev.description}
-                img={ev.img}
-                date={ev.date}
-                id={ev._id}
-                email={ev.email}
+        <div style={{ height: '40vh' }}>
+          <LinearProgress />
+        </div>
+        :
+        <Grid container spacing={0} style={{ marginBottom: '5px', marginTop: '10px' }}>
+          {
+            events.map(ev =>
+              <Grid sx={{ borderRadius: 15 }} item xs={12} sm={6} lg={4}
+                key={ev._id}
+              >
+
+                <EventCard
+                  setIsChange={setIsChange}
+                  isChange={isChange}
+                  title={ev.title}
+                  description={ev.description}
+                  img={ev.img}
+                  date={ev.date}
+                  id={ev._id}
+                  email={ev.email}
 
 
-              />
-            </Grid>
-          )
-        }
-      </Grid>
+                />
+              </Grid>
+            )
+          }
+        </Grid>
+      }
 
     </Container>
   )

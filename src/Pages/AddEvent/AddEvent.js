@@ -1,4 +1,4 @@
-import { Button, Container, TextField } from '@mui/material';
+import { Button, Container, LinearProgress, TextField } from '@mui/material';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router';
 import { getStoredCart } from '../fakedb/fakedb';
@@ -10,11 +10,11 @@ function AddEvent() {
     const user = getStoredCart().user;
     const [eventData, setEventData] = useState({})
     const [date, setDate] = useState(new Date());
-    
+    const [isLoading, setIsLoading] = useState(false)
     const handleDateChange = (newValue) => {
         setDate(newValue);
     };
-    
+
     const navigation = useNavigate();
     const handleOnBlur = e => {
         const field = e.target.name;
@@ -26,6 +26,7 @@ function AddEvent() {
 
 
     const handleLoginSubmit = (e) => {
+        setIsLoading(true)
         const newData = { ...eventData, date: date.toLocaleDateString(), email: user }
         fetch('https://event-managementt.herokuapp.com/addevent', {
             method: 'POST',
@@ -43,6 +44,7 @@ function AddEvent() {
                 } else {
                     alert(data.message)
                 }
+                setIsLoading(false)
             })
         e.preventDefault();
     }
@@ -53,62 +55,70 @@ function AddEvent() {
 
                     <h1>Add Event</h1>
 
-                    <form onSubmit={handleLoginSubmit}>
-                        <TextField
-                            required
+                    {isLoading ?
 
-                            type='text'
-                            sx={{ width: '75%', maxWidth: '450px', m: 1 }}
-                            label="Event Title"
-                            variant="standard"
-                            name='title'
-                            onBlur={handleOnBlur}
-                        />
-                        <br />
-                        <TextField
-                            required
-                            sx={{ width: '75%', maxWidth: '450px', m: 1 }}
-                            type='text'
-                            label="Event Description"
-                            variant="standard"
-                            name='description'
-                            onBlur={handleOnBlur}
-                        />
-                        <br />
-                        <TextField
-                            required
-                            sx={{ width: '75%', maxWidth: '450px', m: 1 }}
-                            type='text'
-                            label="Event Image Link"
-                            variant="standard"
-                            name='img'
-                            onBlur={handleOnBlur}
-                        />
-                        <br />
+                        <div style={{ height: '40vh' }}>
+                            <LinearProgress />
+                        </div>
+                        :
 
-                        <LocalizationProvider
+                        <form onSubmit={handleLoginSubmit}>
+                            <TextField
+                                required
 
-                            dateAdapter={AdapterDateFns}>
-                            <DesktopDatePicker
-
-                                label="Date"
-                                inputFormat="MM/dd/yyyy"
-                                value={date}
-                                onChange={handleDateChange}
-                                renderInput={(params) => <TextField
-                                    sx={{ width: '75%', maxWidth: '450px' }}
-                                    {...params} />}
+                                type='text'
+                                sx={{ width: '75%', maxWidth: '450px', m: 1 }}
+                                label="Event Title"
+                                variant="standard"
+                                name='title'
+                                onBlur={handleOnBlur}
                             />
-                        </LocalizationProvider>
+                            <br />
+                            <TextField
+                                required
+                                sx={{ width: '75%', maxWidth: '450px', m: 1 }}
+                                type='text'
+                                label="Event Description"
+                                variant="standard"
+                                name='description'
+                                onBlur={handleOnBlur}
+                            />
+                            <br />
+                            <TextField
+                                required
+                                sx={{ width: '75%', maxWidth: '450px', m: 1 }}
+                                type='text'
+                                label="Event Image Link"
+                                variant="standard"
+                                name='img'
+                                onBlur={handleOnBlur}
+                            />
+                            <br />
 
-                        <br />
-                        <Button
-                            sx={{ width: '75%', maxWidth: '450px', m: 1, color: 'white', background: '#2E3B55', borderRadius: '10px' }}
-                            variant='contained'
-                            type='submit'
-                        >Add Event</Button>
+                            <LocalizationProvider
 
-                    </form>
+                                dateAdapter={AdapterDateFns}>
+                                <DesktopDatePicker
+
+                                    label="Date"
+                                    inputFormat="MM/dd/yyyy"
+                                    value={date}
+                                    onChange={handleDateChange}
+                                    renderInput={(params) => <TextField
+                                        sx={{ width: '75%', maxWidth: '450px' }}
+                                        {...params} />}
+                                />
+                            </LocalizationProvider>
+
+                            <br />
+                            <Button
+                                sx={{ width: '75%', maxWidth: '450px', m: 1, color: 'white', background: '#2E3B55', borderRadius: '10px' }}
+                                variant='contained'
+                                type='submit'
+                            >Add Event</Button>
+
+                        </form>
+                    }
 
                 </div>
             </div>

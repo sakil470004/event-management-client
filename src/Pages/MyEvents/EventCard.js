@@ -25,6 +25,7 @@ function EventCard({ title, img, description, date, id, email, isChange, setIsCh
                 setOpen={setOpen}
                 email={email}
                 title={title}
+                date={date}
             />
             <EditEvent
                 open={openU}
