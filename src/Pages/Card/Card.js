@@ -6,7 +6,7 @@ function Card({ title, img }) {
       <div style={{ height: '350px', backgroundImage: `url(${img})`, backgroundRepeat: 'no-repeat', backgroundPosition: 'cover', borderRadius: '15px' }}>
 
       </div>
-      <h2 style={{ color: 'white', fontWeight: '300', paddingBottom: '13px' }}>{title}</h2>
+      <h2 style={{ color: 'white', fontWeight: '300', paddingBottom: '13px', height: '60px', textAlign: 'center' }}>{title}</h2>
     </div>
 
   )
