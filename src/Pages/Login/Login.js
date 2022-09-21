@@ -27,13 +27,13 @@ function Login({ setUser }) {
       .then(res => res.json())
       .then(data => {
 
-        if (data.message === 'success') {
+        if (data?.message === 'success') {
           // alert('success')
           addToDb(loginData.email)
           setUser(loginData.email)
           navigation('/myEvents')
         } else {
-          alert('failed')
+          alert(data?.message)
         }
       })
     e.preventDefault();

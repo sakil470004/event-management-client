@@ -16,6 +16,7 @@ function Register({ setUser }) {
   }
 
   const handleLoginSubmit = (e) => {
+    console.log(loginData)
     fetch('https://event-managementt.herokuapp.com/adduser', {
       method: 'POST',
       headers: {

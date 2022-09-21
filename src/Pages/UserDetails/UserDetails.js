@@ -52,10 +52,10 @@ function UserDetails({ user }) {
             })
     }, [])
     return (
-        <div>
+        <div style={{margin:'1rem'}}>
             <h3>Email : {userDetails.email}</h3>
-            <h3>Id : {userDetails._id}</h3>
-            <Accordion style={{ maxWidth: '300px', margin: 'auto' }} >
+            {/* <h3>Id : {userDetails._id}</h3> */}
+            <Accordion style={{ maxWidth: '300px', margin: 'auto',padding:'1rem' }} >
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel2a-content"
