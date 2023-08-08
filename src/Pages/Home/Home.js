@@ -19,7 +19,7 @@ function Home() {
     })
     useEffect(() => {
         setIsLoading(true)
-        fetch('https://event-managementt.herokuapp.com/events')
+        fetch('https://event-management-api-one.vercel.app/events')
             .then(res => res.json())
             .then(data => {
                 setAllEvents(data.events)
@@ -30,7 +30,7 @@ function Home() {
     }, [])
     useEffect(() => {
         setIsLoading(true)
-        fetch(`https://event-managementt.herokuapp.com/events?page=${page}&&size=${size}`)
+        fetch(`https://event-management-api-one.vercel.app/events?page=${page}&&size=${size}`)
             .then(res => res.json())
             .then(data => {
                 const count = data.count;

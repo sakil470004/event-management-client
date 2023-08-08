@@ -39,7 +39,7 @@ export default function EditEvent({ open, setOpen, email, title, description, im
     const handleInvite = (e) => {
         // send data to the server
         setIsLoading(true)
-        fetch('https://event-managementt.herokuapp.com/editEvent', {
+        fetch('https://event-management-api-one.vercel.app/editEvent', {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'

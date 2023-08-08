@@ -24,7 +24,7 @@ function MyEvents({ user }) {
   }
   const fetchAllDataOfCurrentUser = () => {
     setIsLoading(true)
-    fetch(`https://event-managementt.herokuapp.com/myevent?email=${user}`)
+    fetch(`https://event-management-api-one.vercel.app/myevent?email=${user}`)
       .then(res => res.json())
       .then(data => {
         setEvents(data)
@@ -33,7 +33,7 @@ function MyEvents({ user }) {
   }
   const fetchAllDataForCurrentDate = (date) => {
     setIsLoading(true)
-    fetch(`https://event-managementt.herokuapp.com/myevent?email=${user}`)
+    fetch(`https://event-management-api-one.vercel.app/myevent?email=${user}`)
       .then(res => res.json())
       .then(data => {
         const result = data.filter(ev =>
@@ -46,7 +46,7 @@ function MyEvents({ user }) {
   useEffect(() => {
     setIsLoading(true)
     if (action) {
-      fetch(`https://event-managementt.herokuapp.com/eventsWithAction?email=${user}&&action=${action}`)
+      fetch(`https://event-management-api-one.vercel.app/eventsWithAction?email=${user}&&action=${action}`)
 
         .then(res => res.json())
         .then(data => {

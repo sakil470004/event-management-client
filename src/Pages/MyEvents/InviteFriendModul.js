@@ -39,7 +39,7 @@ export default function InviteFriendModule({ open, setOpen, email, title, date }
         setIsLoading(true)
         const newData = { ...inviteDetails, title: title, email: email, date: date }
 
-        fetch('https://event-managementt.herokuapp.com/invite', {
+        fetch('https://event-management-api-one.vercel.app/invite', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

@@ -28,7 +28,7 @@ function AddEvent() {
     const handleLoginSubmit = (e) => {
         setIsLoading(true)
         const newData = { ...eventData, date: date.toLocaleDateString(), email: user }
-        fetch('https://event-managementt.herokuapp.com/addevent', {
+        fetch('https://event-management-api-one.vercel.app/addevent', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

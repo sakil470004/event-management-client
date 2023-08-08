@@ -7,7 +7,7 @@ function Invites({ user }) {
 
     useEffect(() => {
         setIsLoading(true)
-        fetch(`https://event-managementt.herokuapp.com/invite?email=${user}`)
+        fetch(`https://event-management-api-one.vercel.app/invite?email=${user}`)
             .then(res => res.json())
             .then(data => {
                 setInvitesData(data);

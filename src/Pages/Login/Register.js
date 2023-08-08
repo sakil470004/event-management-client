@@ -17,7 +17,7 @@ function Register({ setUser }) {
 
   const handleLoginSubmit = (e) => {
     console.log(loginData)
-    fetch('https://event-managementt.herokuapp.com/adduser', {
+    fetch('https://event-management-api-one.vercel.app/adduser', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'

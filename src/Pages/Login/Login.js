@@ -16,7 +16,7 @@ function Login({ setUser }) {
   }
 
   const handleLoginSubmit = (e) => {
-    fetch('https://event-managementt.herokuapp.com/user', {
+    fetch('https://event-management-api-one.vercel.app/user', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
